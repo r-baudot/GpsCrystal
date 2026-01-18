@@ -1,4 +1,4 @@
-import { GpsWizard } from "@/features/gps/GpsWizard";
+import { GpsManager } from "@/features/gps/GpsManager";
 import { Box } from "@mui/material";
 
 export default function Home() {
@@ -8,7 +8,7 @@ export default function Home() {
         <h1>Welcome to the GPS Application</h1>
         <br />
       </Box>
-      <GpsWizard />
+      <GpsManager />
       <p>- permettre de lister les positions GPS enregistrées</p>
       <p>- permettre de mettre à jour une position GPS dans une popup </p>
       <p>- permettre de supprimer une position GPS</p>
