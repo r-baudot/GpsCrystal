@@ -14,44 +14,29 @@ const meta: Meta<typeof Dialog> = {
 export default meta;
 type Story = StoryObj<typeof Dialog>;
 
-export const Default: Story = {
+export const Confirmation: Story = {
   args: {
     open: true,
-    title: "Titre du dialog",
-    onClose: () => {},
-    onConfirm: () => {},
-    children: <Typography>Contenu du dialog</Typography>,
+    title: "Supprimer le point GPS",
+    onClose: () => console.log("Annuler"),
+    onConfirm: () => console.log("Confirmer"),
+    confirmLabel: "Supprimer",
+    children: (
+      <Typography>Êtes-vous sûr de vouloir supprimer ce point ?</Typography>
+    ),
   },
 };
 
-export const WithoutConfirm: Story = {
+export const Information: Story = {
   args: {
     open: true,
     title: "Information",
-    onClose: () => {},
-    children: <Typography>Ce dialog n&apos;a pas de bouton de confirmation.</Typography>,
-  },
-};
-
-export const CustomLabels: Story = {
-  args: {
-    open: true,
-    title: "Supprimer l'élément",
-    onClose: () => {},
-    onConfirm: () => {},
-    confirmLabel: "Supprimer",
-    cancelLabel: "Non, garder",
-    children: <Typography>Êtes-vous sûr de vouloir supprimer cet élément ?</Typography>,
-  },
-};
-
-export const ConfirmDisabled: Story = {
-  args: {
-    open: true,
-    title: "Formulaire incomplet",
-    onClose: () => {},
-    onConfirm: () => {},
-    confirmDisabled: true,
-    children: <Typography>Le bouton de confirmation est désactivé.</Typography>,
+    onClose: () => console.log("Fermer"),
+    children: (
+      <Typography>
+        Ce dialog affiche uniquement une information, sans action de
+        confirmation.
+      </Typography>
+    ),
   },
 };

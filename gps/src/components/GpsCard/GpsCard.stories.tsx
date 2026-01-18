@@ -24,13 +24,15 @@ export const Crystal: Story = {
   },
 };
 
-export const Bali: Story = {
+export const AvecBoutons: Story = {
   args: {
     point: {
       id: "2",
-      label: "Bali",
-      latitude: "-8.4095",
-      longitude: "115.1889",
+      label: "Tour Eiffel",
+      latitude: "48.8584",
+      longitude: "2.2945",
     },
+    onEdit: () => console.log("Modifier cliqué"),
+    onDelete: () => console.log("Supprimer cliqué"),
   },
 };
