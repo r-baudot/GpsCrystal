@@ -4,9 +4,9 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
 import { useState, ReactNode } from "react";
 import { Button } from "@mui/material";
+import { NumericFormat } from "react-number-format";
 
 interface GPS {
   label: string;
@@ -26,7 +26,11 @@ const STEPS: StepConfig[] = [
       <TextField
         label="Nom du point GPS"
         value={gpsData.label}
-        onChange={(e) => setGpsData({ ...gpsData, label: e.target.value })}
+        onChange={(e) => {
+          const value = e.target.value.replace(/[^a-zA-Z0-9À-ÿ\s-]/g, "");
+          setGpsData({ ...gpsData, label: value });
+        }}
+        slotProps={{ htmlInput: { maxLength: 50 } }}
         fullWidth
       />
     ),
@@ -35,20 +39,26 @@ const STEPS: StepConfig[] = [
     label: "Saisie des coordonnées",
     content: (gpsData, setGpsData) => (
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-        <TextField
+        <NumericFormat
+          customInput={TextField}
           label="Latitude"
-          type="number"
           value={gpsData.latitude}
-          onChange={(e) => setGpsData({ ...gpsData, latitude: e.target.value })}
+          onValueChange={(values) =>
+            setGpsData({ ...gpsData, latitude: values.value })
+          }
+          decimalScale={6}
+          allowNegative
           fullWidth
         />
-        <TextField
+        <NumericFormat
+          customInput={TextField}
           label="Longitude"
-          type="number"
           value={gpsData.longitude}
-          onChange={(e) =>
-            setGpsData({ ...gpsData, longitude: e.target.value })
+          onValueChange={(values) =>
+            setGpsData({ ...gpsData, longitude: values.value })
           }
+          decimalScale={6}
+          allowNegative
           fullWidth
         />
       </Box>
