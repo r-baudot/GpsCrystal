@@ -16,6 +16,7 @@ type Story = StoryObj<typeof GpsCard>;
 export const Crystal: Story = {
   args: {
     point: {
+      id: "1",
       label: "Crystal",
       latitude: "48.8864",
       longitude: "2.3021",
@@ -26,6 +27,7 @@ export const Crystal: Story = {
 export const Bali: Story = {
   args: {
     point: {
+      id: "2",
       label: "Bali",
       latitude: "-8.4095",
       longitude: "115.1889",

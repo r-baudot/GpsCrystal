@@ -11,19 +11,19 @@ import { GpsRecord } from "@/types/gps";
 const GPS_KEY = "gpsPoints";
 
 export const GpsManager = () => {
-  const { getInitial, set } = useBDD<GpsRecord[]>(GPS_KEY);
+  const { loadData, saveData } = useBDD<GpsRecord[]>(GPS_KEY);
   const [points, setPoints] = useState<GpsRecord[]>([]);
   const [editId, setEditId] = useState<string | null>(null);
 
   useEffect(() => {
-    setPoints(getInitial() || []);
+    setPoints(loadData() || []);
   }, []);
 
   const handleSave = (newPoint: Omit<GpsRecord, "id">) => {
     const pointWithId = { ...newPoint, id: crypto.randomUUID() };
     const updatedPoints = [...points, pointWithId];
     setPoints(updatedPoints);
-    set(updatedPoints);
+    saveData(updatedPoints);
   };
 
   const handleUpdate = (updatedPoint: GpsRecord) => {
@@ -31,7 +31,13 @@ export const GpsManager = () => {
       p.id === updatedPoint.id ? updatedPoint : p
     );
     setPoints(updatedPoints);
-    set(updatedPoints);
+    saveData(updatedPoints);
+  };
+
+  const handleDelete = (id: string) => {
+    const updatedPoints = points.filter((p) => p.id !== id);
+    setPoints(updatedPoints);
+    saveData(updatedPoints);
   };
 
   const editingPoint = points.find((p) => p.id === editId) || null;
@@ -43,7 +49,7 @@ export const GpsManager = () => {
         <Typography variant="h5" sx={{ mb: 2 }}>
           Points GPS enregistrés
         </Typography>
-        <GpsList points={points} onEdit={setEditId} />
+        <GpsList points={points} onEdit={setEditId} onDelete={handleDelete} />
       </Box>
       <GpsEditDialog
         open={editId !== null}

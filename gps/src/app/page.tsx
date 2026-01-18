@@ -9,7 +9,6 @@ export default function Home() {
         <br />
       </Box>
       <GpsManager />
-      <p>- permettre de mettre à jour une position GPS dans une popup </p>
       <p>- permettre de supprimer une position GPS</p>
       <p>- permettre de donner la distance entre deux positions GPS</p>
     </>

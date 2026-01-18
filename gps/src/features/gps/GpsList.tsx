@@ -7,9 +7,10 @@ import { GpsRecord } from "@/types/gps";
 interface GpsListProps {
   points: GpsRecord[];
   onEdit?: (id: string) => void;
+  onDelete?: (id: string) => void;
 }
 
-export const GpsList = ({ points, onEdit }: GpsListProps) => {
+export const GpsList = ({ points, onEdit, onDelete }: GpsListProps) => {
   if (points.length === 0) {
     return <Typography>Aucun point GPS enregistré.</Typography>;
   }
@@ -21,6 +22,7 @@ export const GpsList = ({ points, onEdit }: GpsListProps) => {
           key={point.id}
           point={point}
           onEdit={onEdit ? () => onEdit(point.id) : undefined}
+          onDelete={onDelete ? () => onDelete(point.id) : undefined}
         />
       ))}
     </Box>
