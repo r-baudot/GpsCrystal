@@ -3,10 +3,10 @@ import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { GpsPoint } from "@/types/gps";
+import { GpsRecord } from "@/types/gps";
 
 interface GpsCardProps {
-  point: GpsPoint;
+  point: GpsRecord;
   onEdit?: () => void;
 }
 

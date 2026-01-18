@@ -6,40 +6,35 @@ import { useBDD } from "@/hooks/useBDD";
 import { GpsWizard } from "./GpsWizard";
 import { GpsList } from "./GpsList";
 import { GpsEditDialog } from "./GpsEditDialog";
-import { GpsPoint } from "@/types/gps";
+import { GpsRecord } from "@/types/gps";
 
 const GPS_KEY = "gpsPoints";
 
 export const GpsManager = () => {
-  const { getInitial, set } = useBDD<GpsPoint[]>(GPS_KEY);
-  const [points, setPoints] = useState<GpsPoint[]>([]);
-  const [editIndex, setEditIndex] = useState<number | null>(null);
+  const { getInitial, set } = useBDD<GpsRecord[]>(GPS_KEY);
+  const [points, setPoints] = useState<GpsRecord[]>([]);
+  const [editId, setEditId] = useState<string | null>(null);
 
   useEffect(() => {
     setPoints(getInitial() || []);
   }, []);
 
-  const handleSave = (newPoint: GpsPoint) => {
-    const updatedPoints = [...points, newPoint];
+  const handleSave = (newPoint: Omit<GpsRecord, "id">) => {
+    const pointWithId = { ...newPoint, id: crypto.randomUUID() };
+    const updatedPoints = [...points, pointWithId];
     setPoints(updatedPoints);
     set(updatedPoints);
   };
 
-  const handleEdit = (index: number) => {
-    setEditIndex(index);
-  };
-
-  const handleUpdate = (updatedPoint: GpsPoint) => {
-    if (editIndex === null) return;
-    const updatedPoints = [...points];
-    updatedPoints[editIndex] = updatedPoint;
+  const handleUpdate = (updatedPoint: GpsRecord) => {
+    const updatedPoints = points.map((p) =>
+      p.id === updatedPoint.id ? updatedPoint : p
+    );
     setPoints(updatedPoints);
     set(updatedPoints);
   };
 
-  const handleCloseDialog = () => {
-    setEditIndex(null);
-  };
+  const editingPoint = points.find((p) => p.id === editId) || null;
 
   return (
     <>
@@ -48,12 +43,12 @@ export const GpsManager = () => {
         <Typography variant="h5" sx={{ mb: 2 }}>
           Points GPS enregistrés
         </Typography>
-        <GpsList points={points} onEdit={handleEdit} />
+        <GpsList points={points} onEdit={setEditId} />
       </Box>
       <GpsEditDialog
-        open={editIndex !== null}
-        point={editIndex !== null ? points[editIndex] : null}
-        onClose={handleCloseDialog}
+        open={editId !== null}
+        point={editingPoint}
+        onClose={() => setEditId(null)}
         onSave={handleUpdate}
       />
     </>

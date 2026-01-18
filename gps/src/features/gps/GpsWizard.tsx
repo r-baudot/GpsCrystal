@@ -5,16 +5,16 @@ import StepLabel from "@mui/material/StepLabel";
 import Box from "@mui/material/Box";
 import { useState } from "react";
 import { Button } from "@mui/material";
-import { GpsPoint } from "@/types/gps";
+import { Gps } from "@/types/gps";
 import { GPS_FORM_STEPS } from "./gpsFormConfig";
 
 interface GpsWizardProps {
-  onSave: (point: GpsPoint) => void;
+  onSave: (point: Gps) => void;
 }
 
 export const GpsWizard = ({ onSave }: GpsWizardProps) => {
   const [activeStep, setActiveStep] = useState(0);
-  const [gpsData, setGpsData] = useState<GpsPoint>({
+  const [gpsData, setGpsData] = useState<Gps>({
     label: "",
     latitude: "",
     longitude: "",

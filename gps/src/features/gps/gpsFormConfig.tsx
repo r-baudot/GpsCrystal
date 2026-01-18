@@ -2,12 +2,12 @@ import { ReactNode } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { NumericFormat } from "react-number-format";
-import { GpsPoint } from "@/types/gps";
+import { Gps } from "@/types/gps";
 
 export interface StepConfig {
   label: string;
-  content: (gpsData: GpsPoint, setGpsData: (data: GpsPoint) => void) => ReactNode;
-  isValid?: (gpsData: GpsPoint) => boolean;
+  content: (gpsData: Gps, setGpsData: (data: Gps) => void) => ReactNode;
+  isValid?: (gpsData: Gps) => boolean;
 }
 
 export const GPS_FORM_STEPS: StepConfig[] = [
@@ -81,6 +81,6 @@ export const GPS_FORM_STEPS: StepConfig[] = [
   },
 ];
 
-export const isFormValid = (gpsData: GpsPoint): boolean => {
+export const isFormValid = (gpsData: Gps): boolean => {
   return GPS_FORM_STEPS.every((step) => !step.isValid || step.isValid(gpsData));
 };

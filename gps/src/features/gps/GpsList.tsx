@@ -2,11 +2,11 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { GpsCard } from "@/components/GpsCard";
-import { GpsPoint } from "@/types/gps";
+import { GpsRecord } from "@/types/gps";
 
 interface GpsListProps {
-  points: GpsPoint[];
-  onEdit?: (index: number) => void;
+  points: GpsRecord[];
+  onEdit?: (id: string) => void;
 }
 
 export const GpsList = ({ points, onEdit }: GpsListProps) => {
@@ -16,11 +16,11 @@ export const GpsList = ({ points, onEdit }: GpsListProps) => {
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-      {points.map((point, index) => (
+      {points.map((point) => (
         <GpsCard
-          key={index}
+          key={point.id}
           point={point}
-          onEdit={onEdit ? () => onEdit(index) : undefined}
+          onEdit={onEdit ? () => onEdit(point.id) : undefined}
         />
       ))}
     </Box>
