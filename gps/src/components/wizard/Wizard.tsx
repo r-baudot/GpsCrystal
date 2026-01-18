@@ -7,8 +7,9 @@ import TextField from "@mui/material/TextField";
 import { useState, ReactNode } from "react";
 import { Button } from "@mui/material";
 import { NumericFormat } from "react-number-format";
+import { useBDD } from "@/hooks/useBDD";
 
-interface GPS {
+interface GpsPoint {
   label: string;
   latitude: string;
   longitude: string;
@@ -16,7 +17,10 @@ interface GPS {
 
 interface StepConfig {
   label: string;
-  content: (gpsData: GPS, setGpsData: (data: GPS) => void) => ReactNode;
+  content: (
+    gpsData: GpsPoint,
+    setGpsData: (data: GpsPoint) => void,
+  ) => ReactNode;
 }
 
 const STEPS: StepConfig[] = [
@@ -77,13 +81,16 @@ const STEPS: StepConfig[] = [
   },
 ];
 
+const GPS_KEY = "gpsPoints";
+
 export const Wizard = () => {
   const [activeStep, setActiveStep] = useState(0);
-  const [gpsData, setGpsData] = useState<GPS>({
+  const [gpsData, setGpsData] = useState<GpsPoint>({
     label: "",
     latitude: "",
     longitude: "",
   });
+  const { set, get } = useBDD<GpsPoint[]>(GPS_KEY);
 
   const handleNext = () => {
     setActiveStep((activeStep) => activeStep + 1);
@@ -94,7 +101,10 @@ export const Wizard = () => {
   };
 
   const handleSave = () => {
-    console.log("Données sauvegardées:", gpsData);
+    const points = get() || [];
+    set([...points, gpsData]);
+    setGpsData({ label: "", latitude: "", longitude: "" });
+    setActiveStep(0);
   };
 
   return (
