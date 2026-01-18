@@ -21,6 +21,7 @@ interface StepConfig {
     gpsData: GpsPoint,
     setGpsData: (data: GpsPoint) => void,
   ) => ReactNode;
+  isValid?: (gpsData: GpsPoint) => boolean;
 }
 
 const STEPS: StepConfig[] = [
@@ -35,9 +36,11 @@ const STEPS: StepConfig[] = [
           setGpsData({ ...gpsData, label: value });
         }}
         slotProps={{ htmlInput: { maxLength: 50 } }}
+        required
         fullWidth
       />
     ),
+    isValid: (gpsData) => gpsData.label.trim() !== "",
   },
   {
     label: "Saisie des coordonnées",
@@ -56,6 +59,7 @@ const STEPS: StepConfig[] = [
             const { floatValue } = values;
             return floatValue === undefined || (floatValue >= -90 && floatValue <= 90);
           }}
+          required
           fullWidth
         />
         <NumericFormat
@@ -71,10 +75,12 @@ const STEPS: StepConfig[] = [
             const { floatValue } = values;
             return floatValue === undefined || (floatValue >= -180 && floatValue <= 180);
           }}
+          required
           fullWidth
         />
       </Box>
     ),
+    isValid: (gpsData) => gpsData.latitude !== "" && gpsData.longitude !== "",
   },
   {
     label: "Récapitulatif avant sauvegarde",
@@ -115,6 +121,11 @@ export const Wizard = () => {
     setActiveStep(0);
   };
 
+  const isStepValid = () => {
+    const currentStep = STEPS[activeStep];
+    return currentStep.isValid ? currentStep.isValid(gpsData) : true;
+  };
+
   return (
     <Box>
       <MuiStepper activeStep={activeStep} sx={{ mb: 3 }}>
@@ -136,7 +147,7 @@ export const Wizard = () => {
             Sauvegarder
           </Button>
         ) : (
-          <Button variant="contained" onClick={handleNext}>
+          <Button variant="contained" onClick={handleNext} disabled={!isStepValid()}>
             Suivant
           </Button>
         )}
