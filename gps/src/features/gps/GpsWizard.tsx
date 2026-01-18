@@ -97,7 +97,7 @@ const STEPS: StepConfig[] = [
 
 const GPS_KEY = "gpsPoints";
 
-export const Wizard = () => {
+export const GpsWizard = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [gpsData, setGpsData] = useState<GpsPoint>({
     label: "",
