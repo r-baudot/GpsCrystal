@@ -10,6 +10,7 @@ export default function Home() {
       <li>- Etape 1 : Saisie du nom</li>
       <li>- Etape 2 : Saisie des coordonnées</li>
       <li>- Etape 3 : Récapitulatif avant </li>
+      <p>TO DO : implémenter le wizard MUI (3 étapes) + setUp storyBook</p>
     </div>
   );
 }
