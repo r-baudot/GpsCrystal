@@ -45,24 +45,32 @@ const STEPS: StepConfig[] = [
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
         <NumericFormat
           customInput={TextField}
-          label="Latitude"
+          label="Latitude (-90 à 90)"
           value={gpsData.latitude}
           onValueChange={(values) =>
             setGpsData({ ...gpsData, latitude: values.value })
           }
           decimalScale={6}
           allowNegative
+          isAllowed={(values) => {
+            const { floatValue } = values;
+            return floatValue === undefined || (floatValue >= -90 && floatValue <= 90);
+          }}
           fullWidth
         />
         <NumericFormat
           customInput={TextField}
-          label="Longitude"
+          label="Longitude (-180 à 180)"
           value={gpsData.longitude}
           onValueChange={(values) =>
             setGpsData({ ...gpsData, longitude: values.value })
           }
           decimalScale={6}
           allowNegative
+          isAllowed={(values) => {
+            const { floatValue } = values;
+            return floatValue === undefined || (floatValue >= -180 && floatValue <= 180);
+          }}
           fullWidth
         />
       </Box>
