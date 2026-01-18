@@ -6,6 +6,7 @@ import { useBDD } from "@/hooks/useBDD";
 import { GpsWizard } from "./GpsWizard";
 import { GpsList } from "./GpsList";
 import { GpsEditDialog } from "./GpsEditDialog";
+import { GpsDistanceCalculator } from "./GpsDistanceCalculator";
 import { GpsRecord } from "@/types/gps";
 
 const GPS_KEY = "gpsPoints";
@@ -50,6 +51,12 @@ export const GpsManager = () => {
           Points GPS enregistrés
         </Typography>
         <GpsList points={points} onEdit={setEditId} onDelete={handleDelete} />
+      </Box>
+      <Box sx={{ mt: 4 }}>
+        <Typography variant="h5" sx={{ mb: 2 }}>
+          Calculer une distance
+        </Typography>
+        <GpsDistanceCalculator points={points} />
       </Box>
       <GpsEditDialog
         open={editId !== null}
