@@ -1,7 +1,8 @@
 "use client";
 
 export function useBDD<T>(key: string) {
-  const get = (): T | null => {
+  const getInitial = (): T | null => {
+    if (typeof window === "undefined") return null;
     const item = localStorage.getItem(key);
     return item ? JSON.parse(item) : null;
   };
@@ -14,5 +15,5 @@ export function useBDD<T>(key: string) {
     localStorage.removeItem(key);
   };
 
-  return { get, set, remove };
+  return { getInitial, set, remove };
 }
