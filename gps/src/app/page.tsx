@@ -9,8 +9,6 @@ export default function Home() {
         <br />
       </Box>
       <GpsManager />
-      <p>- permettre de supprimer une position GPS</p>
-      <p>- permettre de donner la distance entre deux positions GPS</p>
     </>
   );
 }

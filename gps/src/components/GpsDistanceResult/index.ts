@@ -1,0 +1,1 @@
+export { GpsDistanceResult } from "./GpsDistanceResult";
