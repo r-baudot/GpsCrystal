@@ -1,14 +1,10 @@
 import { GpsManager } from "@/features/gps/GpsManager";
-import { Box } from "@mui/material";
+import { Layout } from "@/components/Layout";
 
 export default function Home() {
   return (
-    <>
-      <Box>
-        <h1>Welcome to the GPS Application</h1>
-        <br />
-      </Box>
+    <Layout>
       <GpsManager />
-    </>
+    </Layout>
   );
 }
