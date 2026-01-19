@@ -13,6 +13,7 @@ interface DialogProps {
   confirmLabel?: string;
   cancelLabel?: string;
   confirmDisabled?: boolean;
+  confirmIcon?: ReactNode;
   children: ReactNode;
 }
 
@@ -24,16 +25,17 @@ export const Dialog = ({
   confirmLabel = "Confirmer",
   cancelLabel = "Annuler",
   confirmDisabled = false,
+  confirmIcon,
   children,
 }: DialogProps) => {
   return (
     <MuiDialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle>{title}</DialogTitle>
-      <DialogContent>{children}</DialogContent>
-      <DialogActions>
+      <DialogTitle sx={{ px: 4, pt: 3 }}>{title}</DialogTitle>
+      <DialogContent sx={{ px: 4, py: 3 }}>{children}</DialogContent>
+      <DialogActions sx={{ px: 4, pb: 3, pt: 2 }}>
         <Button onClick={onClose}>{cancelLabel}</Button>
         {onConfirm && (
-          <Button variant="contained" onClick={onConfirm} disabled={confirmDisabled}>
+          <Button variant="contained" onClick={onConfirm} disabled={confirmDisabled} startIcon={confirmIcon}>
             {confirmLabel}
           </Button>
         )}

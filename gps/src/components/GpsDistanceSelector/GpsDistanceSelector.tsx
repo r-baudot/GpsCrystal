@@ -3,6 +3,9 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import Typography from "@mui/material/Typography";
+import PlaceIcon from "@mui/icons-material/Place";
+import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
 import { GpsRecord } from "@/types/gps";
 
 interface GpsDistanceSelectorProps {
@@ -31,50 +34,99 @@ export const GpsDistanceSelector = ({
   };
 
   return (
-    <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
-      <FormControl sx={{ minWidth: 200 }}>
-        <InputLabel>Point A</InputLabel>
-        <Select
-          value={selectedPointA || ""}
-          label="Point A"
-          onChange={handleChangeA}
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        gap: 2,
+        flexWrap: "wrap",
+      }}
+    >
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1, flex: 1, minWidth: 200 }}>
+        <Box
+          sx={{
+            width: 40,
+            height: 40,
+            borderRadius: "10px",
+            background: "linear-gradient(135deg, #0084fd 0%, #00c6fd 100%)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexShrink: 0,
+          }}
         >
-          <MenuItem value="">
-            <em>Aucun</em>
-          </MenuItem>
-          {points.map((point) => (
-            <MenuItem
-              key={point.id}
-              value={point.id}
-              disabled={point.id === selectedPointB}
-            >
-              {point.label}
+          <Typography sx={{ color: "white", fontWeight: 700, fontSize: "0.9rem" }}>A</Typography>
+        </Box>
+        <FormControl fullWidth>
+          <InputLabel>Point de départ</InputLabel>
+          <Select
+            value={selectedPointA || ""}
+            label="Point de départ"
+            onChange={handleChangeA}
+            sx={{ bgcolor: "white" }}
+          >
+            <MenuItem value="">
+              <em>Sélectionner</em>
             </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+            {points.map((point) => (
+              <MenuItem
+                key={point.id}
+                value={point.id}
+                disabled={point.id === selectedPointB}
+              >
+                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                  <PlaceIcon sx={{ fontSize: 18, color: "primary.main" }} />
+                  {point.label}
+                </Box>
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Box>
 
-      <FormControl sx={{ minWidth: 200 }}>
-        <InputLabel>Point B</InputLabel>
-        <Select
-          value={selectedPointB || ""}
-          label="Point B"
-          onChange={handleChangeB}
+      <CompareArrowsIcon sx={{ color: "text.primary", display: { xs: "none", sm: "block" } }} />
+
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1, flex: 1, minWidth: 200 }}>
+        <Box
+          sx={{
+            width: 40,
+            height: 40,
+            borderRadius: "10px",
+            background: "linear-gradient(135deg, #00c6fd 0%, #0084fd 100%)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexShrink: 0,
+          }}
         >
-          <MenuItem value="">
-            <em>Aucun</em>
-          </MenuItem>
-          {points.map((point) => (
-            <MenuItem
-              key={point.id}
-              value={point.id}
-              disabled={point.id === selectedPointA}
-            >
-              {point.label}
+          <Typography sx={{ color: "white", fontWeight: 700, fontSize: "0.9rem" }}>B</Typography>
+        </Box>
+        <FormControl fullWidth>
+          <InputLabel>Point d'arrivée</InputLabel>
+          <Select
+            value={selectedPointB || ""}
+            label="Point d'arrivée"
+            onChange={handleChangeB}
+            sx={{ bgcolor: "white" }}
+          >
+            <MenuItem value="">
+              <em>Sélectionner</em>
             </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+            {points.map((point) => (
+              <MenuItem
+                key={point.id}
+                value={point.id}
+                disabled={point.id === selectedPointA}
+              >
+                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                  <PlaceIcon sx={{ fontSize: 18, color: "secondary.main" }} />
+                  {point.label}
+                </Box>
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Box>
     </Box>
   );
 };

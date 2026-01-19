@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
+import SaveIcon from "@mui/icons-material/Save";
 import { Dialog } from "@/components/Dialog";
 import { GpsRecord, Gps } from "@/types/gps";
 import { GPS_FORM_STEPS, isFormValid } from "./gpsFormConfig";
@@ -39,13 +40,28 @@ export const GpsEditDialog = ({
   return (
     <Dialog
       open={open}
-      title="Modifier le point GPS"
+      title="Modifier votre point GPS"
       onClose={onClose}
       onConfirm={handleSave}
       confirmLabel="Sauvegarder"
+      confirmIcon={<SaveIcon />}
       confirmDisabled={!isFormValid(formData)}
     >
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 1 }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 3,
+          mt: 2,
+          "& .MuiTextField-root": {
+            maxWidth: "100%",
+          },
+          "& .MuiBox-root": {
+            maxWidth: "100%",
+            width: "100%",
+          },
+        }}
+      >
         {GPS_FORM_STEPS.slice(0, 2).map((step) => (
           <Box key={step.label}>{step.content(formData, setFormData)}</Box>
         ))}

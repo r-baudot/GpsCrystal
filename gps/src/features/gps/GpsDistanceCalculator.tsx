@@ -42,8 +42,8 @@ export const GpsDistanceCalculator = ({
 
   if (points.length < 2) {
     return (
-      <Typography color="text.secondary">
-        Ajoutez au moins deux points GPS pour calculer une distance.
+      <Typography color="text.primary">
+        Ajoutez au moins deux points GPS pour calculer la distance entre eux.
       </Typography>
     );
   }
