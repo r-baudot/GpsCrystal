@@ -329,12 +329,14 @@ export const GpsManager = () => {
               sx={{
                 width: 48,
                 height: 48,
+                minWidth: 48,
                 borderRadius: "12px",
                 background: "transparent",
                 border: "2px solid #0084fd",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
+                flexShrink: 0,
               }}
             >
               <StraightenIcon sx={{ color: "primary.main", fontSize: 28 }} />
@@ -347,6 +349,7 @@ export const GpsManager = () => {
                 backgroundClip: "text",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
+                fontSize: { xs: "1.25rem", sm: "1.5rem", md: "2.125rem" },
               }}
             >
               Calculer la distance entre deux de vos points GPS

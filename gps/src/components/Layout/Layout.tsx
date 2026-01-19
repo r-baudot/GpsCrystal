@@ -189,7 +189,7 @@ export const Layout = ({ children }: LayoutProps) => {
                 "&:hover": { color: "white", textDecoration: "underline" },
               }}
             >
-              Conditions Générales d'Utilisation
+              Conditions Générales d&apos;Utilisation
             </Box>
             <Box
               component="a"

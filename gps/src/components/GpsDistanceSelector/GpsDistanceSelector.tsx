@@ -37,9 +37,9 @@ export const GpsDistanceSelector = ({
     <Box
       sx={{
         display: "flex",
-        alignItems: "center",
+        flexDirection: { xs: "column", sm: "row" },
+        alignItems: { xs: "stretch", sm: "center" },
         gap: 2,
-        flexWrap: "wrap",
       }}
     >
       <Box sx={{ display: "flex", alignItems: "center", gap: 1, flex: 1, minWidth: 200 }}>
