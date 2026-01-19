@@ -1,1 +1,1 @@
-export { theme, gradients } from "./theme";
+export { theme } from "./theme";
